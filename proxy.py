@@ -2,8 +2,6 @@ from http_request_randomizer.requests.proxy.requestProxy import RequestProxy
 import sys, os, logging
 
 def load_proxies(que, length):
-    logger = logging.getLogger('my-logger')
-    logger.propagate = False
     #Get different number of proxy when  you run this at each time
     req_proxy = RequestProxy() 
     

@@ -7,6 +7,7 @@ from proxy import load_proxies, generate_proxies
 from youtubeApi import get_duration, get_details
 from video import run_video
 
+#Getting inputs
 n_thread = int(input('Number threads (from 1 to 10) : '))
 views = int(input('Number of views: '))
 view_time = int(input('View time(seconds) : '))
@@ -17,6 +18,7 @@ if(n_thread < 0  or n_thread > 10):
     print('Thread should be from 1 to 10')
     sys.exit()
     
+#Getting info about the video
 r = get_details(video_id)
 try:
     r['items'][0]
@@ -31,14 +33,16 @@ link = 'https://www.youtube.com/watch?v=' + video_id
 
 proxies_que = queue.Queue()
 
+#if proxy flah is 'n' then proxies_que will be empty which will be handled in video modules
 if(proxy_flag == 'y'):
     #load initial proxies to start with 
     l = load_proxies(proxies_que, 0)
 
+    #If we want more view than the loaded proxies then loading more 
     if(views > l):
         proxy_thread = Thread(target=generate_proxies, args = (proxies_que, views - l,))
         proxy_thread.start()
-        
+
 #Calculating frequency per thread
 freq_per_thread = math.ceil(views / n_thread)
 

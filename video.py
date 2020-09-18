@@ -33,13 +33,15 @@ def run_video(video_id, frequency, proxies_que, view_time):
                 pass
             
             #Initializing the driver 
-            driver = webdriver.Chrome(executable_path='/usr/bin/chromedriver')
+            driver = webdriver.Chrome()
             
             wait = WebDriverWait(driver, 3)
             visible = EC.visibility_of_element_located
             
+            #Loading the link
             driver.get('https://www.youtube.com/watch?v=cSLAO7zxS2M' + video_id)
             
+            #waiting to load fully and click the play 
             wait.until(visible((By.ID, "video-title")))
             driver.find_element_by_id("video-title").click()
             
